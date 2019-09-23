@@ -3,11 +3,21 @@ entries:
   istio-telemetry-stackdriver:
   - apiVersion: v1
     appVersion: "1.0"
-    created: "2019-09-23T03:23:51.763927819Z"
+    created: "2019-09-23T03:30:54.390710087Z"
     description: A Helm chart for Kubernetes
-    digest: c08f79c61b8d66d51e9aa1cb9f5c23c49af970daaf45bfcab6d6b883dc0ed28c
+    digest: 03e3e40bade03018c39d2909c2df104cb8e6a78e7ebbcbeee51ce3572069c965
     name: istio-telemetry-stackdriver
     urls:
     - https://rails-on-services.github.io/helm-charts/istio-telemetry-stackdriver-0.1.0.tgz
     version: 0.1.0
-generated: "2019-09-23T03:23:51.762605567Z"
+  stackdriver-k8s-metrics:
+  - apiVersion: v1
+    appVersion: "1.0"
+    created: "2019-09-23T03:30:54.391249226Z"
+    description: A Helm chart for Kubernetes
+    digest: b42cff4e9371b44873e364bf822464bc839665ad7fecd4eb23900759a150f636
+    name: stackdriver-k8s-metrics
+    urls:
+    - https://rails-on-services.github.io/helm-charts/stackdriver-k8s-metrics-0.1.0.tgz
+    version: 0.1.0
+generated: "2019-09-23T03:30:54.389350917Z"
