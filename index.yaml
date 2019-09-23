@@ -3,19 +3,29 @@ entries:
   basic:
   - apiVersion: v1
     appVersion: "1.0"
-    created: "2019-09-23T03:36:14.135989081Z"
+    created: "2019-09-23T03:37:08.292907148Z"
     description: A Helm chart for Kubernetes
-    digest: efbdeb4f65e908e55bb2ed939b676b89cf1328f35b0c3fe60d10ad3c56945ae3
+    digest: 97465f3429a3a325f657ed2a3baa7dda4f3f9498ebe09151330e2d409cc89298
     name: basic
     urls:
     - https://rails-on-services.github.io/helm-charts/basic-0.0.1.tgz
     version: 0.0.1
+  ingress:
+  - apiVersion: v1
+    appVersion: "1.0"
+    created: "2019-09-23T03:37:08.29334472Z"
+    description: A Helm chart for Kubernetes
+    digest: 4fe19af8b9e17a84a12a2611d32b5e17c377080f59da32315f2094823b844eb8
+    name: ingress
+    urls:
+    - https://rails-on-services.github.io/helm-charts/ingress-0.0.1.tgz
+    version: 0.0.1
   istio-telemetry-stackdriver:
   - apiVersion: v1
     appVersion: "1.0"
-    created: "2019-09-23T03:36:14.136723367Z"
+    created: "2019-09-23T03:37:08.293986716Z"
     description: A Helm chart for Kubernetes
-    digest: 21a288674c8da468ef9e9f48c05d772e06125c4e7add913def252e84d97bc69d
+    digest: 7cb54869bf0f356c33bf8346d1e8e0df5eb0e184c7344f343873ec041818b94a
     name: istio-telemetry-stackdriver
     urls:
     - https://rails-on-services.github.io/helm-charts/istio-telemetry-stackdriver-0.1.0.tgz
@@ -23,9 +33,9 @@ entries:
   service:
   - apiVersion: v1
     appVersion: "1.0"
-    created: "2019-09-23T03:36:14.137412558Z"
+    created: "2019-09-23T03:37:08.294622707Z"
     description: A Helm chart for Kubernetes
-    digest: d9aabc6a4c8f284391b478528feceb115f6dd3ef78cec3b192b029681cc7b94d
+    digest: d5acb19b709539ff33e33eb393f4eedd5488af7500a4820ac9c117057439c0dc
     name: service
     urls:
     - https://rails-on-services.github.io/helm-charts/service-0.0.1.tgz
@@ -33,9 +43,9 @@ entries:
   sftp:
   - apiVersion: v1
     appVersion: "1.0"
-    created: "2019-09-23T03:36:14.137955801Z"
+    created: "2019-09-23T03:37:08.295251257Z"
     description: A Helm chart for sftp service
-    digest: 5e85eff3caf62d28262a09581f24346b4c70940c8cf89da212d98c2a70f12899
+    digest: f037ba69f8f4dcb151dee090d8861914b96e26b5c9f07e30b571acc03f14a636
     name: sftp
     urls:
     - https://rails-on-services.github.io/helm-charts/sftp-0.1.0.tgz
@@ -43,11 +53,11 @@ entries:
   stackdriver-k8s-metrics:
   - apiVersion: v1
     appVersion: "1.0"
-    created: "2019-09-23T03:36:14.138523512Z"
+    created: "2019-09-23T03:37:08.295586859Z"
     description: A Helm chart for Kubernetes
-    digest: 6f0e5a68eed514370a15dfe04ed2d67c1603684f4eb2feb2c877f143cc379383
+    digest: 99769d534a65e38e5591716e4f0e0815854bb670b2a78be2f98d20a9e48a59a8
     name: stackdriver-k8s-metrics
     urls:
     - https://rails-on-services.github.io/helm-charts/stackdriver-k8s-metrics-0.1.0.tgz
     version: 0.1.0
-generated: "2019-09-23T03:36:14.134559438Z"
+generated: "2019-09-23T03:37:08.291995856Z"
