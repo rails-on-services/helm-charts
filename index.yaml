@@ -1,23 +1,43 @@
 apiVersion: v1
 entries:
+  basic:
+  - apiVersion: v1
+    appVersion: "1.0"
+    created: "2019-09-23T03:34:53.502030037Z"
+    description: A Helm chart for Kubernetes
+    digest: 9c44a4aebb7d985d2e4bc2aad0ea7e0cf64820593a0d55f5230fa1dfd976dcd0
+    name: basic
+    urls:
+    - https://rails-on-services.github.io/helm-charts/basic-0.0.1.tgz
+    version: 0.0.1
   istio-telemetry-stackdriver:
   - apiVersion: v1
     appVersion: "1.0"
-    created: "2019-09-23T03:30:54.390710087Z"
+    created: "2019-09-23T03:34:53.502713657Z"
     description: A Helm chart for Kubernetes
-    digest: 03e3e40bade03018c39d2909c2df104cb8e6a78e7ebbcbeee51ce3572069c965
+    digest: 4a319c167fb845ebabba726390786aa22401fe2d89d6db43da94140c79882798
     name: istio-telemetry-stackdriver
     urls:
     - https://rails-on-services.github.io/helm-charts/istio-telemetry-stackdriver-0.1.0.tgz
     version: 0.1.0
+  service:
+  - apiVersion: v1
+    appVersion: "1.0"
+    created: "2019-09-23T03:34:53.503603716Z"
+    description: A Helm chart for Kubernetes
+    digest: adc002af576beda120099c1bbcc1011b0e94b57e1dfdf30c471bfefcef53b5ff
+    name: service
+    urls:
+    - https://rails-on-services.github.io/helm-charts/service-0.0.1.tgz
+    version: 0.0.1
   stackdriver-k8s-metrics:
   - apiVersion: v1
     appVersion: "1.0"
-    created: "2019-09-23T03:30:54.391249226Z"
+    created: "2019-09-23T03:34:53.503942603Z"
     description: A Helm chart for Kubernetes
-    digest: b42cff4e9371b44873e364bf822464bc839665ad7fecd4eb23900759a150f636
+    digest: 223ad204698a8575af6b33fa9850d526a26a9c204e371a14c44ff17c8289c66f
     name: stackdriver-k8s-metrics
     urls:
     - https://rails-on-services.github.io/helm-charts/stackdriver-k8s-metrics-0.1.0.tgz
     version: 0.1.0
-generated: "2019-09-23T03:30:54.389350917Z"
+generated: "2019-09-23T03:34:53.501072424Z"
