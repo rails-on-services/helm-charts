@@ -1,0 +1,139 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ include "stackdriver-k8s-metrics.fullname" . }}
+  labels:
+{{ include "stackdriver-k8s-metrics.labels" . | indent 4 }}
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app.kubernetes.io/name: {{ include "stackdriver-k8s-metrics.name" . }}
+      app.kubernetes.io/instance: {{ .Release.Name }}
+  strategy:
+    rollingUpdate:
+      maxSurge: 1
+      maxUnavailable: 1
+    type: RollingUpdate
+  template:
+    metadata:
+      annotations:
+        scheduler.alpha.kubernetes.io/critical-pod: ""
+        prometheus.io/path: /metrics
+        prometheus.io/port: "8082"
+        prometheus.io/scheme: http
+        prometheus.io/scrape: "true"
+      labels:
+        app.kubernetes.io/name: {{ include "stackdriver-k8s-metrics.name" . }}
+        app.kubernetes.io/instance: {{ .Release.Name }}
+        k8s-app: heapster
+        version: {{ .Values.image.tag }}
+    spec:
+      {{- with .Values.imagePullSecrets }}
+      imagePullSecrets:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+      serviceAccountName: {{ include "stackdriver-k8s-metrics.fullname" . }}
+      priorityClassName: system-cluster-critical
+      securityContext:
+        fsGroup: 65534
+        supplementalGroups:
+        - 65534
+      containers:
+        - name: heapster
+          image: "{{ .Values.image.repository }}:{{ .Values.image.tag }}"
+          imagePullPolicy: {{ .Values.image.pullPolicy }}
+          env:
+            - name: CLUSTER_NAME
+              value: {{ .Values.clusterName }}
+            - name: CLUSTER_LOCATION
+              value: {{ .Values.clusterLocation }}
+            {{- if .Values.gcpServiceAccountSecret.enabled }}
+            - name: GOOGLE_APPLICATION_CREDENTIALS
+              value: /etc/google/auth/application_default_credentials.json
+            {{- end }}
+          {{- if .Values.gcpServiceAccountSecret.enabled }}
+          volumeMounts:
+            - name: gcp-service-account
+              mountPath: /etc/google/auth/application_default_credentials.json
+              subPath: application_default_credentials.json
+          {{- end }}
+          command:
+            - /heapster
+            - --source=kubernetes.summary_api:https://kubernetes.default?kubeletHttps=true&kubeletPort=10250&insecure=true
+            - --sink=stackdriver:?cluster_name=$(CLUSTER_NAME)&cluster_location=$(CLUSTER_LOCATION)&zone=$(CLUSTER_LOCATION)&use_old_resources=false&use_new_resources=true&min_interval_sec=100&batch_export_timeout_sec=110
+          livenessProbe:
+            failureThreshold: 3
+            httpGet:
+              path: /healthz
+              port: 8082
+              scheme: HTTP
+            initialDelaySeconds: 180
+            periodSeconds: 10
+            successThreshold: 1
+            timeoutSeconds: 5
+          resources:
+            {{- toYaml .Values.resources | trim | nindent 12 }}
+        - name: heapster-nanny
+          image: k8s.gcr.io/addon-resizer:1.8.3
+          command:
+          - /pod_nanny
+          - --config-dir=/etc/config
+          - --cpu=10m
+          - --extra-cpu=0.5m
+          - --memory=100Mi
+          - --extra-memory=4Mi
+          - --threshold=5
+          - --deployment={{ include "stackdriver-k8s-metrics.fullname" . }}
+          - --container=heapster
+          - --poll-period=300000
+          - --estimator=exponential
+          - --minClusterSize=5
+          env:
+          - name: MY_POD_NAME
+            valueFrom:
+              fieldRef:
+                apiVersion: v1
+                fieldPath: metadata.name
+          - name: MY_POD_NAMESPACE
+            valueFrom:
+              fieldRef:
+                apiVersion: v1
+                fieldPath: metadata.namespace
+          imagePullPolicy: IfNotPresent
+          resources:
+            limits:
+              cpu: 50m
+              memory: 92560Ki
+            requests:
+              cpu: 50m
+              memory: 92560Ki
+          volumeMounts:
+          - name: nanny-config-volume
+            mountPath: /etc/config
+      volumes:
+      - name: nanny-config-volume
+        configMap:
+          defaultMode: 420
+          name: {{ include "stackdriver-k8s-metrics.fullname" . }}-nanny-config
+      {{- if .Values.gcpServiceAccountSecret.enabled }}
+      - name: "gcp-service-account"
+        secret:
+          secretName: {{ .Values.gcpServiceAccountSecret.name | quote }}
+          defaultMode: 420
+          items:
+            - key: {{ .Values.gcpServiceAccountSecret.key | quote }}
+              path: application_default_credentials.json
+      {{- end }}
+      {{- with .Values.nodeSelector }}
+      nodeSelector:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+      {{- with .Values.affinity }}
+      affinity:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+      {{- with .Values.tolerations }}
+      tolerations:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}

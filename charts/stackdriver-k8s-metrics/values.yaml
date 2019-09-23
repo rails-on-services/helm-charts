@@ -1,0 +1,40 @@
+# Default values for stackdriver-k8s-metrics.
+# This is a YAML-formatted file.
+# Declare variables to be passed into your templates.
+
+replicaCount: 1
+
+image:
+  repository: gcr.io/stackdriver-agents/heapster-amd64
+  tag: v1.6.1
+  pullPolicy: IfNotPresent
+
+imagePullSecrets: []
+nameOverride: ""
+fullnameOverride: ""
+
+resources:
+  limits:
+    cpu: 88m
+    memory: 204Mi
+  requests:
+    cpu: 88m
+    memory: 204Mi
+
+nodeSelector: {}
+
+tolerations:
+  - key: CriticalAddonsOnly
+    operator: Exists
+
+affinity: {}
+
+# Kubernetes clustername
+clusterName: k8s-cluster
+clusterLocation: asia-southeast1
+
+# existing secret contain the google cloud service account private json key
+gcpServiceAccountSecret:
+  enabled: false
+  name:
+  key: application_default_credentials.json
