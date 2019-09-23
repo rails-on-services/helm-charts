@@ -1,0 +1,29 @@
+# Default values for istio-telemetry-stackdriver.
+# This is a YAML-formatted file.
+# Declare variables to be passed into your templates.
+
+meshID: ""
+
+stackdriver:
+  projectId: 
+  cluster_name: 
+  # refer to https://cloud.google.com/compute/docs/regions-zones/#available
+  location: 
+  pushInterval: 10s
+  auth:
+    appCredentials: false
+    serviceAccountPath: ""
+
+logentry:
+  enabled: false
+
+metric:
+  enabled: true
+
+tracespan:
+  enabled: false
+  sampleProbability: 1
+
+# contextGraph
+edge:
+  enabled: false

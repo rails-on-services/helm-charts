@@ -1,0 +1,66 @@
+{{- if .Values.tracespan.enabled }}
+#################################################
+############## Instances Config #################
+#################################################
+apiVersion: "config.istio.io/v1alpha2"
+kind: instance
+metadata:
+  name: stackdriver-span
+  namespace: {{ .Release.Namespace }}
+  labels:
+    app: istio-telemetry
+    release: {{ .Release.Name }}
+spec:
+  compiledTemplate: tracespan
+  params:
+    clientSpan: (context.reporter.kind | "inbound") == "outbound"
+    endTime: response.time
+    parentSpanId: request.headers["x-b3-parentspanid"] | ""
+    rewriteClientSpanId: "true"
+    spanId: request.headers["x-b3-spanid"] | ""
+    spanName: destination.service.host | destination.service.name | destination.workload.name
+      | "unknown"
+    spanTags:
+      api_name: api.service | "unknown"
+      api_version: api.version | "unknown"
+      destination_owner: destination.owner | "unknown"
+      destination_port: destination.port | 0
+      destination_service_name: destination.service.name | "unknown"
+      destination_service_namespace: destination.service.namespace | "unknown"
+      destination_workload_name: destination.workload.name | "unknown"
+      destination_workload_namespace: destination.workload.namespace | "unknown"
+      http_url: request.path | ""
+      request_operation: conditional((context.protocol | "unknown") == "grpc", request.path
+        | "unknown", request.method | "unknown")
+      request_protocol: context.protocol | "unknown"
+      request_size: request.size | 0
+      response_code: response.code | 0
+      response_size: response.size | 0
+      service_authentication_policy: conditional((context.reporter.kind | "inbound")
+        == "outbound", "unknown", conditional(connection.mtls | false, "mutual_tls",
+        "none"))
+      source_ip: source.ip | ip("0.0.0.0")
+      source_owner: source.owner | "unknown"
+      source_workload_name: source.workload.name | "unknown"
+      source_workload_namespace: source.workload.namespace | "unknown"
+    startTime: request.time
+    traceId: request.headers["x-b3-traceid"]
+---
+#################################################
+############## Rules Config #####################
+#################################################
+apiVersion: "config.istio.io/v1alpha2"
+kind: rule
+metadata:
+  name: stackdriver-tracing-rule
+  namespace: {{ .Release.Namespace }}
+  labels:
+    app: istio-telemetry
+    release: {{ .Release.Name }}
+spec:
+  actions:
+  - handler: stackdriver
+    instances:
+    - stackdriver-span
+  match: (context.protocol == "http" || context.protocol == "grpc") && request.headers["x-b3-sampled"] == "1" && destination.workload.name != "istio-telemetry" && destination.workload.name != "istio-pilot"
+{{- end }}

@@ -1,0 +1,187 @@
+apiVersion: config.istio.io/v1alpha2
+kind: handler
+metadata:
+  labels:
+    app: istio-telemetry
+    release: {{ .Release.Name }}
+  name: stackdriver
+  namespace: {{ .Release.Namespace }}
+spec:
+  compiledAdapter: stackdriver
+  params:
+    logInfo:
+      server-accesslog-stackdriver.instance.{{ .Release.Namespace }}:
+        labelNames:
+        - mesh_uid
+        - source_uid
+        - source_ip
+        - source_app
+        - source_principal
+        - source_name
+        - source_workload
+        - source_namespace
+        - source_owner
+        - destination_uid
+        - destination_app
+        - destination_ip
+        - destination_service_host
+        - destination_service_name
+        - destination_service_namespace
+        - destination_workload
+        - destination_name
+        - destination_namespace
+        - destination_owner
+        - destination_principal
+        - api_name
+        - api_version
+        - api_claims
+        - api_key
+        - request_operation
+        - protocol
+        - method
+        - url
+        - response_code
+        - response_size
+        - request_size
+        - request_id
+        - client_trace_id
+        - latency
+        - service_authentication_policy
+        - user_agent
+        - response_timestamp
+        - received_bytes
+        - sent_bytes
+        - referer
+      server-tcp-accesslog-stackdriver.instance.{{ .Release.Namespace }}:
+        labelNames:
+        - mesh_uid
+        - connection_id
+        - connection_event
+        - source_uid
+        - source_ip
+        - source_app
+        - source_principal
+        - source_name
+        - source_workload
+        - source_namespace
+        - source_owner
+        - destination_uid
+        - destination_app
+        - destination_ip
+        - destination_service_host
+        - destination_service_name
+        - destination_service_namespace
+        - destination_workload
+        - destination_name
+        - destination_namespace
+        - destination_owner
+        - destination_principal
+        - protocol
+        - connction_duration
+        - service_authentication_policy
+        - received_bytes
+        - sent_bytes
+        - total_received_bytes
+        - total_sent_bytes
+    metricInfo:
+      client-received-bytes-count.instance.{{ .Release.Namespace }}:
+        kind: 3
+        metric_type: istio.io/service/client/received_bytes_count
+        value: 2
+      client-request-bytes.instance.{{ .Release.Namespace }}:
+        buckets:
+          exponentialBuckets:
+            growthFactor: 2
+            numFiniteBuckets: 20
+            scale: 1
+        kind: 3
+        metric_type: istio.io/service/client/request_bytes
+        value: 5
+      client-request-count.instance.{{ .Release.Namespace }}:
+        kind: 3
+        metric_type: istio.io/service/client/request_count
+        value: 2
+      client-response-bytes.instance.{{ .Release.Namespace }}:
+        buckets:
+          exponentialBuckets:
+            growthFactor: 2
+            numFiniteBuckets: 20
+            scale: 1
+        kind: 3
+        metric_type: istio.io/service/client/response_bytes
+        value: 5
+      client-roundtrip-latencies.instance.{{ .Release.Namespace }}:
+        buckets:
+          exponentialBuckets:
+            growthFactor: 2
+            numFiniteBuckets: 20
+            scale: 1
+        kind: 3
+        metric_type: istio.io/service/client/roundtrip_latencies
+        value: 5
+      client-sent-bytes-count.instance.{{ .Release.Namespace }}:
+        kind: 3
+        metric_type: istio.io/service/client/sent_bytes_count
+        value: 2
+      mixer-request-count.metric.{{ .Release.Namespace }}:
+        kind: 3
+        metric_type: container.googleapis.com/internal/addons/istio/mixer_request_count
+        value: 2
+      mixer-request-latency.metric.{{ .Release.Namespace }}:
+        buckets:
+          exponentialBuckets:
+            growthFactor: 2
+            numFiniteBuckets: 20
+            scale: 1
+        kind: 3
+        metric_type: container.googleapis.com/internal/addons/istio/mixer_request_latency
+        value: 5
+      server-received-bytes-count.instance.{{ .Release.Namespace }}:
+        kind: 3
+        metric_type: istio.io/service/server/received_bytes_count
+        value: 2
+      server-request-bytes.instance.{{ .Release.Namespace }}:
+        buckets:
+          exponentialBuckets:
+            growthFactor: 2
+            numFiniteBuckets: 20
+            scale: 1
+        kind: 3
+        metric_type: istio.io/service/server/request_bytes
+        value: 5
+      server-request-count.instance.{{ .Release.Namespace }}:
+        kind: 3
+        metric_type: istio.io/service/server/request_count
+        value: 2
+      server-response-bytes.instance.{{ .Release.Namespace }}:
+        buckets:
+          exponentialBuckets:
+            growthFactor: 2
+            numFiniteBuckets: 20
+            scale: 1
+        kind: 3
+        metric_type: istio.io/service/server/response_bytes
+        value: 5
+      server-response-latencies.instance.{{ .Release.Namespace }}:
+        buckets:
+          exponentialBuckets:
+            growthFactor: 2
+            numFiniteBuckets: 20
+            scale: 1
+        kind: 3
+        metric_type: istio.io/service/server/response_latencies
+        value: 5
+      server-sent-bytes-count.instance.{{ .Release.Namespace }}:
+        kind: 3
+        metric_type: istio.io/service/server/sent_bytes_count
+        value: 2
+    projectId: {{ .Values.stackdriver.projectId }}
+    pushInterval: {{ .Values.stackdriver.pushInterval }}
+    {{- if .Values.stackdriver.auth.serviceAccountPath }}
+    serviceAccountPath: {{ .Values.stackdriver.auth.serviceAccountPath }}
+    {{- end }}
+    {{- if .Values.stackdriver.auth.appCredentials }}
+    appCredentials: {{ .Values.stackdriver.auth.appCredentials }}
+    {{- end }}
+    trace:
+      sampleProbability: {{ .Values.tracespan.sampleProbability }}

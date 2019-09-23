@@ -1,0 +1,47 @@
+{{- if .Values.edge.enabled }}
+#################################################
+############## Instances Config #################
+#################################################
+apiVersion: "config.istio.io/v1alpha2"
+kind: instance
+metadata:
+  name: stackdriver-edge
+  namespace: {{ .Release.Namespace }}
+  labels:
+    app: istio-telemetry
+    release: {{ .Release.Name }}
+spec:
+  compiledTemplate: edge
+  params:
+    timestamp: request.time | context.time | timestamp("2017-01-01T00:00:00Z")
+    sourceUid: source.uid | "Unknown"
+    sourceOwner: source.owner | "Unknown"
+    sourceWorkloadName: source.workload.name | "Unknown"
+    sourceWorkloadNamespace: source.workload.namespace | "Unknown"
+    destinationUid: destination.uid | "Unknown"
+    destinationOwner: destination.owner | "Unknown"
+    destinationWorkloadName: destination.workload.name | "Unknown"
+    destinationWorkloadNamespace: destination.workload.namespace | "Unknown"
+    contextProtocol: context.protocol | "Unknown"
+    apiProtocol: api.protocol | "Unknown"
+    destinationServiceName: destination.service.name | "Unknown"
+    destinationServiceNamespace: destination.service.namespace | "Unknown"
+---
+#################################################
+############## Rules Config #####################
+#################################################
+apiVersion: "config.istio.io/v1alpha2"
+kind: rule
+metadata:
+  name: stackdriver-edge
+  namespace: {{ .Release.Namespace }}
+  labels:
+    app: istio-telemetry
+    release: {{ .Release.Name }}
+spec:
+  match: (context.reporter.kind | "inbound" == "inbound") && (context.protocol | "unknown" != "unknown")
+  actions:
+   - handler: stackdriver
+     instances:
+     - stackdriver-edge
+{{- end }}
