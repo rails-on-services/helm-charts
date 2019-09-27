@@ -217,9 +217,9 @@ data:
 
         <buffer>
           # Set the buffer type to file to improve the reliability and reduce the memory consumption
-          #@type file
-          #path /var/log/fluentd-buffers/kubernetes.containers.buffer
-          @type memory
+          @type file
+          path /var/log/fluentd-buffers/kubernetes.containers.buffer
+          #@type memory
           # Set queue_full action to block because we want to pause gracefully
           # in case of the off-the-limits load instead of throwing an exception
           overflow_action block
@@ -285,9 +285,9 @@ data:
         use_grpc true
         <buffer>
           # Set the buffer type to file to improve the reliability and reduce the memory consumption
-          #@type file
-          #path /var/log/fluentd-buffers/kubernetes.system.buffer
-          @type memory
+          @type file
+          path /var/log/fluentd-buffers/kubernetes.system.buffer
+          #@type memory
           # Set queue_full action to block because we want to pause gracefully
           # in case of the off-the-limits load instead of throwing an exception
           overflow_action block
