@@ -17,10 +17,12 @@ metadata:
 spec:
   type: {{ .Values.service.type }}
   ports:
-    - port: {{ .Values.service.port }}
-      targetPort: tcp
-      protocol: TCP
-      name: tcp
+    {{- range $port := .Values.service.ports }}
+    - name: {{ $port.name }}
+      targetPort: {{ $port.containerPort }}
+      protocol: {{ $port.protocol }}
+      port: {{ $port.containerPort }}
+    {{- end }}
   selector:
     app.kubernetes.io/name: {{ include "fluentd.name" . }}
     app.kubernetes.io/instance: {{ .Release.Name }}

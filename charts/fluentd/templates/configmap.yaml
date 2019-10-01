@@ -11,12 +11,22 @@ metadata:
     {{- toYaml . | trim | nindent 4 }}
     {{- end }}
 data:
-  input.conf: |
-    <source>
-      @type forward
-      port {{ .Values.containerPort }}
-    </source>
 {{- range $key, $value := .Values.configMaps }}
   {{ $key }}: |-
 {{ $value | indent 4 }}
+{{- end }}
+{{- if .Values.metrics.enabled }}
+  metrics.conf: |
+    <source>
+      @type prometheus
+      port {{ .Values.metrics.service.port }}
+    </source>
+
+    <source>
+      @type prometheus_monitor
+    </source>
+
+    <source>
+      @type prometheus_output_monitor
+    </source>
 {{- end }}
