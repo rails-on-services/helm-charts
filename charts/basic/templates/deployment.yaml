@@ -92,5 +92,8 @@ spec:
         - name: secret-volume-{{ $index }}
           secret:
             secretName: {{ $secretMount.secretName }}
+            {{- if hasKey $secretMount "optional" }}
+            optional: {{ $secretMount.optional }}
+            {{- end }}
         {{- end }}
       {{- end }}
