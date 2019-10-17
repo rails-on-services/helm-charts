@@ -3,9 +3,9 @@ entries:
   basic:
   - apiVersion: v1
     appVersion: "1.0"
-    created: "2019-10-16T10:26:00.559069956Z"
+    created: "2019-10-17T07:07:34.842053233Z"
     description: A Helm chart for Kubernetes
-    digest: 04eca99f27b46ad3a948fa42c2a4cf6a88b023f7471c46b6185f3c501da8eb20
+    digest: e8de8face306c414ad2835735428ffb60c84bf43edc9be342b3dba9f3db061d9
     name: basic
     urls:
     - https://rails-on-services.github.io/helm-charts/basic-0.0.1.tgz
@@ -13,9 +13,9 @@ entries:
   cp-kafka-connect:
   - apiVersion: v1
     appVersion: "1.0"
-    created: "2019-10-16T10:26:00.559871926Z"
+    created: "2019-10-17T07:07:34.842832598Z"
     description: A Helm chart for Confluent Kafka Connect on Kubernetes
-    digest: 0bd65c3521af96274a051161f53f993aec98e04f1343954cbea6a50a3cc420b9
+    digest: a8a39f86d4786992dde594fb935a8eb0d7f676e5968dceb163735f1ca32793d7
     name: cp-kafka-connect
     urls:
     - https://rails-on-services.github.io/helm-charts/cp-kafka-connect-0.1.0.tgz
@@ -23,9 +23,9 @@ entries:
   cp-schema-registry:
   - apiVersion: v1
     appVersion: "1.0"
-    created: "2019-10-16T10:26:00.560567376Z"
+    created: "2019-10-17T07:07:34.843561336Z"
     description: A Helm chart for Confluent Schema Registry on Kubernetes
-    digest: a211554ee7513261e19a339279e72c8e8668eb6c1992e9619760711deeaf7ae5
+    digest: a0d75d0b50e237d3d06ec6e217273cfd761ecd870737fe6b7f0b4fc31666004d
     name: cp-schema-registry
     urls:
     - https://rails-on-services.github.io/helm-charts/cp-schema-registry-0.1.0.tgz
@@ -33,9 +33,9 @@ entries:
   cp-zookeeper:
   - apiVersion: v1
     appVersion: "1.0"
-    created: "2019-10-16T10:26:00.561488582Z"
+    created: "2019-10-17T07:07:34.844519082Z"
     description: A Helm chart for Confluent Zookeeper on Kubernetes
-    digest: d15f110243ffa27f6812ff9edfbfa4bd1b1dd5784cf7e77bfb52197da916916c
+    digest: da5a8277f9b1f7769d401b27dd38f3097597f363cfdf057e67c3a269eaa15a86
     name: cp-zookeeper
     urls:
     - https://rails-on-services.github.io/helm-charts/cp-zookeeper-0.1.0.tgz
@@ -43,16 +43,16 @@ entries:
   fluentd:
   - apiVersion: v1
     appVersion: "1.0"
-    created: "2019-10-16T10:26:00.562757424Z"
+    created: "2019-10-17T07:07:34.845867187Z"
     description: A Helm chart for Kubernetes
-    digest: 9d81efa5048302b3aa8f762576e58cfc008d6e10580a99a80991af667ed38aee
+    digest: 667b7c44f3447b26847ae6c87db2f15b51addfa1b6712e13e2aec01a3f9a0419
     name: fluentd
     urls:
     - https://rails-on-services.github.io/helm-charts/fluentd-0.0.2.tgz
     version: 0.0.2
   - apiVersion: v1
     appVersion: "1.0"
-    created: "2019-10-16T10:26:00.562395361Z"
+    created: "2019-10-17T07:07:34.845043918Z"
     description: A Helm chart for Kubernetes
     digest: cefcbcc4e2b9fffa8aaa9582e64cfad5fec1dce1789ec5e14f15acb7f9f76668
     name: fluentd
@@ -62,9 +62,9 @@ entries:
   ingress:
   - apiVersion: v1
     appVersion: "1.0"
-    created: "2019-10-16T10:26:00.562965473Z"
+    created: "2019-10-17T07:07:34.846157625Z"
     description: A Helm chart for Kubernetes
-    digest: 620e8fbb5bffae64f111811c8d5c41bf55d51f44c90f7654da61e317fe9ccd87
+    digest: d919aac56c6a7f0fdaca79cb02a0900fe65533e1464814aaab3313e392eb8eed
     name: ingress
     urls:
     - https://rails-on-services.github.io/helm-charts/ingress-0.0.1.tgz
@@ -72,16 +72,16 @@ entries:
   istio-alb-ingressgateway:
   - apiVersion: v1
     appVersion: "1.0"
-    created: "2019-10-16T10:26:00.563379679Z"
+    created: "2019-10-17T07:07:34.846631701Z"
     description: A Helm chart for Kubernetes
-    digest: c1ff4a3035c12eb8bca4832994485b7108c5d5d86ca0aa5bcbe7349a56006c81
+    digest: a52892958df30202e7ed18b1b4318b2bd2e37833b8692601d96bf9dbea674e9d
     name: istio-alb-ingressgateway
     urls:
     - https://rails-on-services.github.io/helm-charts/istio-alb-ingressgateway-0.1.1.tgz
     version: 0.1.1
   - apiVersion: v1
     appVersion: "1.0"
-    created: "2019-10-16T10:26:00.563158711Z"
+    created: "2019-10-17T07:07:34.846378069Z"
     description: A Helm chart for Kubernetes
     digest: 11020ceb1bbeb9649f314a669d2ca84352ecef793acb14ac4ccc8183e2aa1f44
     name: istio-alb-ingressgateway
@@ -91,9 +91,9 @@ entries:
   istio-telemetry-stackdriver:
   - apiVersion: v1
     appVersion: "1.0"
-    created: "2019-10-16T10:26:00.563726361Z"
+    created: "2019-10-17T07:07:34.847012229Z"
     description: A Helm chart for Kubernetes
-    digest: 3bd15119e1dc6f2e6461e3e68a59353f27773f07473ac1d3626c027d9a3556f1
+    digest: 980416ae3cce02719a63bc40ac82347ddf417d8a31aa2172bb4088bb32dc12b9
     name: istio-telemetry-stackdriver
     urls:
     - https://rails-on-services.github.io/helm-charts/istio-telemetry-stackdriver-0.1.0.tgz
@@ -101,16 +101,16 @@ entries:
   k8s-cluster-logging:
   - apiVersion: v1
     appVersion: "1.0"
-    created: "2019-10-16T10:26:00.566049404Z"
+    created: "2019-10-17T07:07:34.849542917Z"
     description: A Helm chart for Kubernetes
-    digest: ea3431fb3b660063d45b50992f9a25e56a6dd746dd8703467ab83feba4940e77
+    digest: b41c5d32e4058638866f1ce7637f8d6b51d45525101d61f072354fee8ea4ee87
     name: k8s-cluster-logging
     urls:
     - https://rails-on-services.github.io/helm-charts/k8s-cluster-logging-0.0.5.tgz
     version: 0.0.5
   - apiVersion: v1
     appVersion: "1.0"
-    created: "2019-10-16T10:26:00.565618674Z"
+    created: "2019-10-17T07:07:34.849037283Z"
     description: A Helm chart for Kubernetes
     digest: 5c95c58a7112f0ef107a48e1ef047cfdad99885102447f61df960b1a51ff0e27
     name: k8s-cluster-logging
@@ -119,7 +119,7 @@ entries:
     version: 0.0.4
   - apiVersion: v1
     appVersion: "1.0"
-    created: "2019-10-16T10:26:00.565160566Z"
+    created: "2019-10-17T07:07:34.848569729Z"
     description: A Helm chart for Kubernetes
     digest: b002da679414241737929ad4eb1d4467867709610e75d665f5e47d92c7f91acb
     name: k8s-cluster-logging
@@ -128,7 +128,7 @@ entries:
     version: 0.0.3
   - apiVersion: v1
     appVersion: "1.0"
-    created: "2019-10-16T10:26:00.564676371Z"
+    created: "2019-10-17T07:07:34.848075432Z"
     description: A Helm chart for Kubernetes
     digest: e168a8c2a11a7116d9e1126bda60b25d8de1298185b483d3f4b405360cba7341
     name: k8s-cluster-logging
@@ -137,7 +137,7 @@ entries:
     version: 0.0.2
   - apiVersion: v1
     appVersion: "1.0"
-    created: "2019-10-16T10:26:00.564158962Z"
+    created: "2019-10-17T07:07:34.847481548Z"
     description: A Helm chart for Kubernetes
     digest: 53c08d1dc51c2dafaefec570ec552da3fea2cd8a705775c6c75c9dc7e1a342c6
     name: k8s-cluster-logging
@@ -147,9 +147,9 @@ entries:
   service:
   - apiVersion: v1
     appVersion: "1.0"
-    created: "2019-10-16T10:26:00.566358567Z"
+    created: "2019-10-17T07:07:34.849903423Z"
     description: A Helm chart for Kubernetes
-    digest: c005d9c708d2f3670fd206a46284db79ff7b497402c8a61e3f17764809c08704
+    digest: f99ff7357ddd6f1f395f0c717c7605b10b5338428fc8a84871ad9a6671872dcd
     name: service
     urls:
     - https://rails-on-services.github.io/helm-charts/service-0.0.1.tgz
@@ -157,9 +157,9 @@ entries:
   sftp:
   - apiVersion: v1
     appVersion: "1.0"
-    created: "2019-10-16T10:26:00.566602227Z"
+    created: "2019-10-17T07:07:34.850200402Z"
     description: A Helm chart for sftp service
-    digest: a1f0f85758117c91b63b19def73d624e656b15dea47547e620d78ac4627edbac
+    digest: 1abbbda051547c42c3dd1a77d2a1165aba64a564b95fa47bb511d2e2738decf2
     name: sftp
     urls:
     - https://rails-on-services.github.io/helm-charts/sftp-0.1.0.tgz
@@ -167,11 +167,11 @@ entries:
   stackdriver-k8s-metrics:
   - apiVersion: v1
     appVersion: "1.0"
-    created: "2019-10-16T10:26:00.566856445Z"
+    created: "2019-10-17T07:07:34.850490956Z"
     description: A Helm chart for Kubernetes
-    digest: 206c6a3bdbeabe329d9226e0c3f2d4ae0654e82630fc1a96d015fa45f2d1479c
+    digest: 319f4bf2867ff416967f3ff31037a428c5382fe5da7837558392c6bcf1331abd
     name: stackdriver-k8s-metrics
     urls:
     - https://rails-on-services.github.io/helm-charts/stackdriver-k8s-metrics-0.1.0.tgz
     version: 0.1.0
-generated: "2019-10-16T10:26:00.557803551Z"
+generated: "2019-10-17T07:07:34.840730976Z"
