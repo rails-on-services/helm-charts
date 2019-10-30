@@ -31,7 +31,7 @@ spec:
       annotations:
         scheduler.alpha.kubernetes.io/critical-pod: ''
     spec:
-      dnsPolicy: Default
+      #dnsPolicy: Default
       serviceAccountName: {{ include "k8s-cluster-logging.fullname" . }}
       containers:
       - name: fluentd
