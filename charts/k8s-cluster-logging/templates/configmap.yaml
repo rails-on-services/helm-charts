@@ -61,6 +61,7 @@ data:
       tag reform.*
       read_from_head true
     </source>
+
     <source>
       @type tail
       format json
@@ -72,26 +73,9 @@ data:
       read_from_head true
     </source>
 
-    <filter reform.**>
+    <filter reform.** loki.**>
       @type kubernetes_metadata
     </filter>
-
-    <filter loki.**>
-      @type kubernetes_metadata
-    </filter>
-
-    # <filter loki.**>
-    #   @type record_transformer
-    #   enable_ruby
-    #   remove_keys kubernetes, docker
-    #   <record>
-    #     app ${ record.dig("kubernetes", "labels", "app") }
-    #     job ${ record.dig("kubernetes", "labels", "app") }
-    #     namespace ${ record.dig("kubernetes", "namespace_name") }
-    #     pod ${ record.dig("kubernetes", "pod_name") }
-    #     container ${ record.dig("kubernetes", "container_name") }
-    #   </record>
-    # </filter>
 
     <filter reform.**>
       @type record_modifier
@@ -115,7 +99,6 @@ data:
 
       <store>
         @type prometheus
-
         <metric>
           type counter
           name logging_line_count
@@ -127,7 +110,6 @@ data:
       </store>
       <store>
         @type detect_exceptions
-
         remove_tag_prefix raw
         message log
         stream stream
@@ -228,7 +210,7 @@ data:
       @type loki
       url "http://loki.monitor.svc.cluster.local:3100"
       extract_kubernetes_labels true
-      remove_keys kubernetes
+      remove_keys kubernetes,docker,stream
       <label>
         namespace $.kubernetes.namespace_name
         container $.kubernetes.container
