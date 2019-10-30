@@ -211,6 +211,7 @@ data:
       url "http://loki.monitor.svc.cluster.local:3100"
       extract_kubernetes_labels true
       remove_keys kubernetes,docker,stream
+      drop_single_key true
       <label>
         namespace $.kubernetes.namespace_name
         container $.kubernetes.container
