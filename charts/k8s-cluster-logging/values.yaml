@@ -3,7 +3,7 @@
 # Declare variables to be passed into your templates.
 
 image:
-  repository: perxtech/fluentd
+  repository: railsonservices/fluentd
   tag: latest
   pullPolicy: IfNotPresent
 
