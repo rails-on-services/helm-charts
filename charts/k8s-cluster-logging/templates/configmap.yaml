@@ -61,9 +61,32 @@ data:
       tag reform.*
       read_from_head true
     </source>
+    <source>
+      @type tail
+      format json
+      time_key time
+      path /var/log/containers/*.log
+      pos_file /var/log/loki-containers.log.pos
+      time_format %Y-%m-%dT%H:%M:%S.%N%Z
+      tag loki.*
+      read_from_head true
+    </source>
 
-    <filter reform.**>
+    <filter reform.**,loki.**>
       @type kubernetes_metadata
+    </filter>
+
+    <filter loki.**>
+      @type record_transformer
+      enable_ruby
+      remove_keys kubernetes, docker
+      <record>
+        app ${ record.dig("kubernetes", "labels", "app") }
+        job ${ record.dig("kubernetes", "labels", "app") }
+        namespace ${ record.dig("kubernetes", "namespace_name") }
+        pod ${ record.dig("kubernetes", "pod_name") }
+        container ${ record.dig("kubernetes", "container_name") }
+      </record>
     </filter>
 
     <filter reform.**>
@@ -197,6 +220,15 @@ data:
     # the node daemon logs, the latter of which explicitly sends its logs to the
     # compute.googleapis.com service rather than container.googleapis.com to keep
     # them separate since most users don't care about the node logs.
+    <match loki.**>
+      @type loki
+      url "http://loki.monitor.svc.cluster.local:3100"
+      label_keys "app,job,namespace,pod"
+      flush_interval 10s
+      flush_at_shutdown true
+      buffer_chunk_limit 1m
+    </match>
+
     <match kubernetes.**>
       @type copy
 
@@ -252,16 +284,6 @@ data:
             component container
           </labels>
         </metric>
-      </store>
-      <store>
-        @type loki
-        url "http://loki.monitor.svc.cluster.local:3100"
-        flush_interval 10s
-        flush_at_shutdown true
-        buffer_chunk_limit 1m
-        <label>
-          fluentd_worker
-        </label>
       </store>
     </match>
 
