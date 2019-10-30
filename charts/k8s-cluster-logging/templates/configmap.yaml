@@ -80,18 +80,18 @@ data:
       @type kubernetes_metadata
     </filter>
 
-    <filter loki.**>
-      @type record_transformer
-      enable_ruby
-      remove_keys kubernetes, docker
-      <record>
-        app ${ record.dig("kubernetes", "labels", "app") }
-        job ${ record.dig("kubernetes", "labels", "app") }
-        namespace ${ record.dig("kubernetes", "namespace_name") }
-        pod ${ record.dig("kubernetes", "pod_name") }
-        container ${ record.dig("kubernetes", "container_name") }
-      </record>
-    </filter>
+    # <filter loki.**>
+    #   @type record_transformer
+    #   enable_ruby
+    #   remove_keys kubernetes, docker
+    #   <record>
+    #     app ${ record.dig("kubernetes", "labels", "app") }
+    #     job ${ record.dig("kubernetes", "labels", "app") }
+    #     namespace ${ record.dig("kubernetes", "namespace_name") }
+    #     pod ${ record.dig("kubernetes", "pod_name") }
+    #     container ${ record.dig("kubernetes", "container_name") }
+    #   </record>
+    # </filter>
 
     <filter reform.**>
       @type record_modifier
@@ -227,7 +227,14 @@ data:
     <match loki.**>
       @type loki
       url "http://loki.monitor.svc.cluster.local:3100"
-      label_keys "app,job,namespace,pod"
+      extract_kubernetes_labels true
+      remove_keys kubernetes
+      <label>
+        namespace $.kubernetes.namespace_name
+        container $.kubernetes.container
+        app $.kubernetes.labels.app
+        pod $.kubernetes.pod_name
+      </label>
       flush_interval 10s
       flush_at_shutdown true
       buffer_chunk_limit 1m
