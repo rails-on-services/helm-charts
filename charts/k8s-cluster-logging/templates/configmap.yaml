@@ -72,7 +72,11 @@ data:
       read_from_head true
     </source>
 
-    <filter reform.**,loki.**>
+    <filter reform.**>
+      @type kubernetes_metadata
+    </filter>
+
+    <filter loki.**>
       @type kubernetes_metadata
     </filter>
 
