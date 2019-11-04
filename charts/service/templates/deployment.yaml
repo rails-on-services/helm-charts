@@ -55,7 +55,7 @@ spec:
               port: http
               httpHeaders:
               - name: Host
-                value: localhost
+                value: {{ include "service.name" . }}
           livenessProbe:
             failureThreshold: 5
             initialDelaySeconds: 10
@@ -64,7 +64,7 @@ spec:
               port: http
               httpHeaders:
               - name: Host
-                value: localhost
+                value: {{ include "service.name" . }}
           {{- end }}
           {{- with .Values.app.command }}
           command:
