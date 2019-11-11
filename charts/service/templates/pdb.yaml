@@ -5,8 +5,9 @@ metadata:
   name: {{ template "service.fullname" . }}-pdb
   namespace: {{ .Release.Namespace }}
 spec:
+  {{- toYaml .Values.podDisruptionBudget | nindent 2 }}
   selector:
     matchLabels:
-      app: {{ template "service.fullname" . }}
-{{ .Values.podDisruptionBudget | indent 2 }}
+      app.kubernetes.io/name: {{ include "service.fullname" . }}
+      app.kubernetes.io/instance: {{ .Release.Name }}
 {{- end -}}
