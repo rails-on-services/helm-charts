@@ -3,9 +3,10 @@ apiVersion: policy/v1beta1
 kind: PodDisruptionBudget
 metadata:
   name: {{ template "service.fullname" . }}-pdb
+  namespace: {{ .Release.Namespace }}
 spec:
   selector:
     matchLabels:
-{{ include "service.fullname" . | indent 6 }}
+      app: {{ template "service.fullname" . }}
 {{ .Values.podDisruptionBudget | indent 2 }}
 {{- end -}}
