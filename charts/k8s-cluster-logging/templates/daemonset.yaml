@@ -103,6 +103,9 @@ spec:
       tolerations:
       - key: "node.alpha.kubernetes.io/ismaster"
         effect: "NoSchedule"
+      {{- with .Values.tolerations }}
+        {{- toYaml . | trim | nindent 8 }}
+      {{- end }}
       terminationGracePeriodSeconds: 30
       volumes:
       - name: varlog
