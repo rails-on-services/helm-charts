@@ -14,17 +14,21 @@ spec:
   hosts:
     {{- toYaml .Values.hosts | nindent 6 }}
   gateways:
-    - {{ include "ingress.fullname" . }}-gateway
+  - {{ include "ingress.fullname" . }}-gateway
   http:
+  - headers:
+    request:
+      set:
+        x-request-start: "t=%START_TIME(%s.%3f)%"
   {{- range .Values.services }}
     - match:
       - uri:
-          prefix: {{ .prefix }}/
+        prefix: {{ .prefix }}/
       rewrite:
         uri: /
       route:
       - destination:
-          port:
-            number: {{ .port }}
-          host: {{ .name }}
+        port:
+          number: {{ .port }}
+        host: {{ .name }}
   {{- end }}
