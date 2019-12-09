@@ -24,11 +24,11 @@ spec:
         uri: /
       route:
       - destination:
-          headers:
-            request:
-              set:
-                x-request-start: "t=%START_TIME(%s.%3f)%"
           port:
             number: {{ .port }}
           host: {{ .name }}
+        headers:
+          request:
+            add:
+              x-request-start: "t=%START_TIME(%s.%3f)%"
   {{- end }}
