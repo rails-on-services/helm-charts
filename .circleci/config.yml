@@ -1,0 +1,50 @@
+version: 2.1
+jobs:
+  publish_charts:
+    working_directory: ~/project
+    machine:
+      image: ubuntu-1604:201903-01
+    steps:
+      - checkout
+      - checkout:
+          path: ~/gh-pages
+      - run:
+          name: Configure git user
+          command: |
+            git config --global user.email "circleci@localhost"
+            git config --global user.name "CircleCI"
+      - run:
+          name: Checkout github page branch
+          working_directory: ~/gh-pages
+          command: |
+            git checkout gh-pages
+      - run:
+          name: Initialize helm
+          command: |
+            curl -L https://git.io/get_helm.sh | bash
+            helm init --client-only
+      - run:
+          name: Package charts
+          working_directory: ~/gh-pages
+          command: |
+            for d in ~/project/charts/*; do
+              if [ -d "${d}" ] && [ -f "${d}/Chart.yaml" ]; then
+                helm package ${d}
+              fi
+            done
+            helm repo index . --url https://rails-on-services.github.io/helm-charts
+      - run:
+          name: Push charts
+          working_directory: ~/gh-pages
+          command: |
+            git add .
+            git commit -m "Update chart for ${CIRCLE_SHA1:0:7}"
+            git push
+workflows:
+  publish_charts:
+    jobs:
+      - publish_charts:
+          filters:
+            branches:
+              only:
+                - master
