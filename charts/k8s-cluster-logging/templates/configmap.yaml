@@ -217,6 +217,8 @@ data:
         container $.kubernetes.container
         app $.kubernetes.labels.app
         pod $.kubernetes.pod_name
+        job_name $.kubernetes.labels.job_name
+        component $.kubernetes.labels.app_kubernetes_io_component
       </label>
       flush_interval 10s
       flush_at_shutdown true
