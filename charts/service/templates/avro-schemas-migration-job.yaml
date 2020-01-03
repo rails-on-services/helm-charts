@@ -1,8 +1,8 @@
-{{- if .Values.hook.upgradeMigration.enabled -}}
+{{- if .Values.hook.avroMigration.enabled -}}
 apiVersion: batch/v1
 kind: Job
 metadata:
-  name: {{ template "service.fullname" . }}-migration
+  name: {{ template "service.fullname" . }}-avro-migration
   labels:
     app.kubernetes.io/name: {{ include "service.name" . }}
     helm.sh/chart: {{ include "service.chart" . }}
@@ -35,14 +35,14 @@ spec:
         # https://github.com/istio/istio/issues/6324
         sidecar.istio.io/inject: "false"
     spec:
-      backoffLimit: {{ .Values.hook.upgradeMigration.backoffLimit }}
-      restartPolicy: {{ .Values.hook.upgradeMigration.restartPolicy }}
+      backoffLimit: {{ .Values.hook.avroMigration.backoffLimit }}
+      restartPolicy: {{ .Values.hook.avroMigration.restartPolicy }}
       containers:
-        - name: {{ include "service.name" . }}-migration
+        - name: {{ include "service.name" . }}-avro-migration
           image: "{{ .Values.image.repository }}:{{ .Values.image.tag }}"
           imagePullPolicy: {{ .Values.image.pullPolicy }}
           command:
-            {{- toYaml .Values.hook.upgradeMigration.command | trim | nindent 12 }}
+            {{- toYaml .Values.hook.avroMigration.command | trim | nindent 12 }}
           {{- with .Values.app.env }}
           env:
             {{- range $name, $value := . }}
@@ -62,7 +62,7 @@ spec:
             {{- end }}
           {{- end }}
           resources:
-            {{- toYaml .Values.hook.upgradeMigration.resources | trim | nindent 12 }}
+            {{- toYaml .Values.hook.avroMigration.resources | trim | nindent 12 }}
       {{- with .Values.imagePullSecrets }}
       imagePullSecrets:
         {{- toYaml . | trim | nindent 8}}

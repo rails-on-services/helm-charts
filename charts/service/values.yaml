@@ -89,8 +89,17 @@ hook:
   # whether to do migration when upgrade the release
   upgradeMigration:
     enabled: true
+    backoffLimit: 3
     restartPolicy: OnFailure
     command: ["bundle", "exec", "rails", "db:migrate"]
+    resources:
+      requests:
+        cpu: 300m
+        memory: 500Mi
+  avroMigration:
+    enabled: false
+    backoffLimit: 3
+    restartPolicy: OnFailure
     resources:
       requests:
         cpu: 300m
