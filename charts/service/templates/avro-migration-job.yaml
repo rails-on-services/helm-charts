@@ -2,7 +2,7 @@
 apiVersion: batch/v1
 kind: Job
 metadata:
-  name: {{ template "service.fullname" . }}-avro-migration
+  name: {{ template "service.fullname" . }}-migration-avro
   labels:
     app.kubernetes.io/name: {{ include "service.name" . }}
     helm.sh/chart: {{ include "service.chart" . }}
@@ -38,7 +38,7 @@ spec:
       backoffLimit: {{ .Values.hook.avroMigration.backoffLimit }}
       restartPolicy: {{ .Values.hook.avroMigration.restartPolicy }}
       containers:
-        - name: {{ include "service.name" . }}-avro-migration
+        - name: {{ include "service.name" . }}-migration-avro
           image: "{{ .Values.image.repository }}:{{ .Values.image.tag }}"
           imagePullPolicy: {{ .Values.image.pullPolicy }}
           command:
