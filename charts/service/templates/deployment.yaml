@@ -72,6 +72,10 @@ spec:
           command:
             {{- toYaml . | trim | nindent 12 }}
           {{- end }}
+          {{- with .Values.app.args }}
+          args:
+            {{- toYaml . | trim | nindent 12 }}
+          {{- end }}
           {{- with .Values.app.env }}
           env:
             {{- range $name, $value := . }}
