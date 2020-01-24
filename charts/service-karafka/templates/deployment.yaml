@@ -135,6 +135,23 @@ spec:
           command:
             {{- toYaml . | trim | nindent 12 }}
           {{- end }}
+          envFrom:
+            {{- range .Values.app.envFromConfigMaps }}
+            - configMapRef:
+                name: {{ . | quote }}
+            {{- end }}
+            {{- range .Values.app.envFromSecrets }}
+            - secretRef:
+                name: {{ . | quote }}
+            {{- end }}
+          {{- end }}
+          {{- if .Values.secretMounts }}
+          volumeMounts:
+            {{- range $index, $secretMount := .Values.secretMounts }}
+            - name: secret-volume-{{ $index }}
+              mountPath: {{ $secretMount.mountPath }}
+            {{- end }}
+          {{- end }}
           resources:
             {{- toYaml .Values.karafka.resources | trim | nindent 12 }}
         {{- end }}
